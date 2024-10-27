@@ -1,0 +1,414 @@
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3212774472178015"
+     crossorigin="anonymous"></script>
+<!-- Calculator -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-3212774472178015"
+     data-ad-slot="2383097748"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+<div class="container">
+    <div class="input-definition-container">
+        <div class="definitions">
+            <h2>Definitions</h2>
+            <p><strong>Current Age:</strong> Your current age.</p>
+            <p><strong>Planned Retirement Age:</strong> The age at which you plan to retire.</p>
+            <p><strong>Current Retirement Savings ($):</strong> The amount of money you currently have saved for retirement.</p>
+            <p><strong>Current Income ($):</strong> Your current annual income.</p>
+            <p><strong>Income Replacement Percentage (%):</strong> The percentage of your current income you expect to need during retirement.</p>
+            <p><strong>Expected Return on Investment (%):</strong> The annual rate of return you expect to earn on your investments.</p>
+            <p><strong>Years in Retirement:</strong> The number of years you expect to spend in retirement.</p>
+        </div>
+        <div class="calculator">
+            <h1>Retirement Savings Goal Calculator</h1>
+            <div class="input-section">
+                <div class="input-column">
+                    <label for="currentAge">Current Age:</label>
+                    <input type="text" id="currentAge" required>
+
+                    <label for="retirementAge">Planned Retirement Age:</label>
+                    <input type="text" id="retirementAge" required>
+
+                    <label for="currentSavings">Current Retirement Savings ($):</label>
+                    <input type="text" id="currentSavings" required>
+
+                    <label for="currentIncome">Current Income ($):</label>
+                    <input type="text" id="currentIncome" required>
+
+                    <label for="incomeReplacement">Income Replacement Percentage (%):</label>
+                    <input type="range" id="incomeReplacementSlider" min="0" max="100" value="70" step="1" oninput="updateIncomeReplacementLabel()">
+                    <span id="incomeReplacementLabel">70%</span>
+                    <input type="hidden" id="incomeReplacement" value="70">
+
+                    <label for="roi">Expected Return on Investment (%):</label>
+                    <input type="text" id="roi" required>
+
+                    <label for="yearsInRetirement">Years in Retirement:</label>
+                    <input type="text" id="yearsInRetirement" required>
+                </div>
+            </div>
+            <button id="calculateGoalButton">Calculate</button>
+            <p id="goalResult"></p>
+        </div>
+    </div>
+    <div class="output-section">
+        <div class="chart-container">
+            <canvas id="goalChart"></canvas>
+        </div>
+        <div class="table-container">
+            <table id="goalTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Age</th>
+                        <th>Starting Balance</th>
+                        <th>Interest Earned</th>
+                        <th>Contribution/Withdrawal</th>
+                        <th>Ending Balance</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    position: relative;
+}
+
+.input-definition-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.definitions, .calculator {
+    width: 45%;
+    margin: 10px;
+}
+
+.definitions h2 {
+    margin-bottom: 10px;
+}
+
+.definitions p {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.calculator {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.calculator h1 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.input-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.input-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.calculator label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 1em;
+}
+
+.calculator input[type="text"], .calculator input[type="range"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#goalResult {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.output-section {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.chart-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#goalChart {
+    width: 100%;
+    height: 500px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#goalTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#goalTable th, #goalTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: right;
+    font-size: 1em;
+}
+
+#goalTable th {
+    background-color: #f5f5f5;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+let chart;
+
+function updateIncomeReplacementLabel() {
+    const slider = document.getElementById('incomeReplacementSlider');
+    const label = document.getElementById('incomeReplacementLabel');
+    const input = document.getElementById('incomeReplacement');
+    label.innerText = slider.value + '%';
+    input.value = slider.value;
+}
+
+function calculateRetirementGoal() {
+    const currentAge = parseFloat(document.getElementById('currentAge').value.replace(/,/g, ''));
+    const retirementAge = parseFloat(document.getElementById('retirementAge').value.replace(/,/g, ''));
+    const currentSavings = parseFloat(document.getElementById('currentSavings').value.replace(/,/g, ''));
+    const currentIncome = parseFloat(document.getElementById('currentIncome').value.replace(/,/g, ''));
+    const incomeReplacement = parseFloat(document.getElementById('incomeReplacement').value) / 100;
+    const roi = parseFloat(document.getElementById('roi').value.replace(/,/g, '')) / 100;
+    const yearsInRetirement = parseInt(document.getElementById('yearsInRetirement').value.replace(/,/g, ''));
+
+    if (isNaN(currentAge) || isNaN(retirementAge) || isNaN(currentSavings) || isNaN(currentIncome) || isNaN(incomeReplacement) || isNaN(roi) || isNaN(yearsInRetirement)) {
+        document.getElementById('goalResult').innerText = "Please enter valid numbers.";
+        return;
+    }
+
+    const yearsUntilRetirement = retirementAge - currentAge;
+    const annualIncomeNeeded = currentIncome * incomeReplacement;
+    const totalIncomeNeeded = annualIncomeNeeded * yearsInRetirement;
+
+    let futureValueOfSavings = currentSavings * Math.pow(1 + roi, yearsUntilRetirement);
+    let pvOfIncomeNeeded = totalIncomeNeeded / Math.pow(1 + roi, yearsUntilRetirement);
+    let amountToSave = (pvOfIncomeNeeded - futureValueOfSavings) / (Math.pow(1 + roi / 12, 12 * yearsUntilRetirement) - 1) * (roi / 12);
+
+    document.getElementById('goalResult').innerHTML = `
+        You need to save approximately <strong>${formatCurrency(amountToSave)}</strong> per month to reach your retirement goal.
+    `;
+
+    const data = [];
+    let currentBalance = currentSavings;
+    let totalContributions = 0;
+
+    // Pre-Retirement Phase
+    for (let year = 0; year < yearsUntilRetirement; year++) {
+        const interestEarned = currentBalance * roi;
+        let contribution = amountToSave * 12;
+        if (contribution < 0) {
+            contribution = 0;
+        }
+        totalContributions += contribution;
+        const endingBalance = currentBalance + interestEarned + contribution;
+
+        data.push({
+            year: year + 1,
+            age: currentAge + year + 1,
+            startingBalance: currentBalance,
+            interest: interestEarned,
+            contribution: contribution,
+            endingBalance: endingBalance
+        });
+
+        currentBalance = endingBalance;
+    }
+
+    // Post-Retirement Phase
+    for (let year = 0; year < yearsInRetirement; year++) {
+        const interestEarned = currentBalance > 0 ? currentBalance * roi : 0;
+        const withdrawal = annualIncomeNeeded;
+        const endingBalance = currentBalance + interestEarned - withdrawal;
+
+        data.push({
+            year: yearsUntilRetirement + year + 1,
+            age: retirementAge + year + 1,
+            startingBalance: currentBalance,
+            interest: interestEarned,
+            contribution: -withdrawal,
+            endingBalance: endingBalance
+        });
+
+        currentBalance = endingBalance;
+    }
+
+    drawGoalChart(data);
+    populateGoalTable(data);
+
+    document.getElementById('goalTable').style.display = 'table';
+}
+
+function drawGoalChart(data) {
+    const ctx = document.getElementById('goalChart').getContext('2d');
+    const labels = data.map(d => d.year);
+    const contributions = data.map(d => d.contribution);
+    const interest = data.map(d => d.interest);
+    const endingBalances = data.map(d => d.endingBalance);
+
+    if (chart) {
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Contributions/Withdrawals',
+                    data: contributions,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Interest Earned',
+                    data: interest,
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Ending Balance',
+                    data: endingBalances,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Years'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Amount ($)'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return formatCurrency(value);
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function populateGoalTable(data) {
+    const tbody = document.getElementById('goalTable').getElementsByTagName('tbody')[0];
+    tbody.innerHTML = ''; // Clear previous table data
+    data.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${row.year}</td>
+            <td>${row.age}</td>
+            <td>${formatCurrency(row.startingBalance)}</td>
+            <td>${formatCurrency(row.interest)}</td>
+            <td>${formatCurrency(row.contribution)}</td>
+            <td>${formatCurrency(row.endingBalance)}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+function formatCurrency(value) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(value);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const calculateGoalButton = document.getElementById('calculateGoalButton');
+    if (calculateGoalButton) {
+        calculateGoalButton.addEventListener('click', calculateRetirementGoal);
+    }
+    updateIncomeReplacementLabel();
+});
+</script>

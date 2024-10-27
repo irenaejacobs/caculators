@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Mortgage Calculator Page Ad -->
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="YOUR_ADSENSE_PUBLISHER_ID"
+            data-ad-slot="YOUR_AD_SLOT_ID"
+            data-ad-format="auto"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+	
+    <div class="container">
+        <div class="input-definition-container">
+            <div class="definitions">
+                <h2>Definitions</h2>
+         <p><strong>Home Value ($):</strong> The total value of the home you are purchasing. This is the purchase price of the property.</p>
+                <p><strong>Down Payment (%):</strong> The percentage of the home value you will pay upfront. This reduces the loan amount you need to borrow.</p>
+                <p><strong>Loan Term (years):</strong> The number of years over which you will repay the loan. Common terms are 15 or 30 years.</p>
+                <p><strong>Interest Rate (%):</strong> The annual interest rate on the loan. This is the cost of borrowing the money, expressed as a percentage.</p>
+                <p><strong>Start Month:</strong> The month when the loan repayment will start. This helps to calculate the payment schedule accurately.</p>
+                <p><strong>Start Year:</strong> The year when the loan repayment will start. This is used in conjunction with the start month.</p>
+                <p><strong>Double Payments:</strong> Option to double your monthly payments. This can help pay off the loan faster and reduce interest costs.</p>
+                <p><strong>Balloon Payment ($):</strong> A large payment made at a specified period during the loan term. This is usually a lump sum paid at the end of the loan term.</p>
+                <p><strong>Balloon Payment Period (months):</strong> The period (in months) when the balloon payment will be made. For example, a balloon payment at 60 months means a large payment at the end of 5 years.</p>
+            </div>
+            <div class="calculator">
+                <h1>Mortgage Calculator</h1>
+                <div class="input-section">
+                    <div class="input-column">
+                        <label for="homeValue">Home Value ($):</label>
+                        <input type="text" id="homeValue" required>
+
+                        <label for="downPayment">Down Payment (%):</label>
+                        <input type="text" id="downPayment" required>
+
+                        <label for="loanTerm">Loan Term (years):</label>
+                        <input type="text" id="loanTerm" required>
+
+                        <label for="interestRate">Interest Rate (%):</label>
+                        <input type="text" id="interestRate" required>
+
+                        <label for="startMonth">Start Month:</label>
+                        <select id="startMonth" required>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+
+                        <label for="startYear">Start Year:</label>
+                        <input type="text" id="startYear" required>
+                    </div>
+                    <div class="input-column optional">
+                        <h2>Optional</h2>
+                        <label for="doublePayments">Double Payments:</label>
+                        <select id="doublePayments" required>
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+
+                        <label for="balloonPayment">Balloon Payment ($):</label>
+                        <input type="text" id="balloonPayment">
+
+                        <label for="balloonPeriod">Balloon Payment Period (months):</label>
+                        <input type="text" id="balloonPeriod">
+                    </div>
+                </div>
+                <button id="calculateMortgageButton">Calculate</button>
+                <p id="mortgageResult"></p>
+                <button id="exportMortgageButton" style="display: none;">Export to Excel</button>
+            </div>
+        </div>
+        <div class="output-section">
+            <div class="chart-container">
+                <canvas id="mortgageChart"></canvas>
+            </div>
+            <div class="table-container">
+                <table id="mortgageTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Period</th>
+                            <th>Payment</th>
+                            <th>Principal</th>
+                            <th>Interest</th>
+                            <th>Total Payment</th>
+                            <th>Remaining Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <a href="index.html" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>
